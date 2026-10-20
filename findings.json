@@ -1,0 +1,231 @@
+{
+  "summary": {
+    "transactions_checked": 62,
+    "billing_transactions": 60,
+    "erp_transactions": 61,
+    "findings_count": 9,
+    "total_exposure_eur": 56280.0,
+    "by_type": {
+      "missing_from_erp": 1,
+      "phantom_erp_entry": 2,
+      "wrong_period": 1,
+      "amount_mismatch": 1,
+      "currency_mismatch": 1,
+      "likely_duplicate_payment": 1,
+      "contract_drift": 2
+    }
+  },
+  "findings": [
+    {
+      "id": "F001",
+      "type": "missing_from_erp",
+      "severity": "high",
+      "invoice_ids": [
+        "INV-1052"
+      ],
+      "customer": "Osterbro Property Group",
+      "description": "Osterbro Property Group was invoiced in billing (EUR 4,800, issued 2026-06-05) but no matching entry exists in the ERP ledger. Unrecognised revenue -- the kind of gap that only surfaces once someone cross-checks both systems line by line.",
+      "evidence": {
+        "billing": {
+          "invoice_id": "INV-1052",
+          "customer": "Osterbro Property Group",
+          "amount_eur": "4800",
+          "issue_date": "2026-06-05",
+          "currency": "EUR"
+        }
+      },
+      "exposure_eur": 4800.0
+    },
+    {
+      "id": "F002",
+      "type": "phantom_erp_entry",
+      "severity": "high",
+      "invoice_ids": [
+        "INV-1061"
+      ],
+      "customer": "Fjordmark A/S.",
+      "description": "Fjordmark A/S. has an ERP booking (EUR 4,200, period 2026-05) with no underlying invoice in the billing system. No source document -- needs tracing back to whatever created this entry.",
+      "evidence": {
+        "erp": {
+          "invoice_id": "INV-1061",
+          "customer": "Fjordmark A/S.",
+          "amount_eur": "4200",
+          "booked_date": "2026-05-02",
+          "period": "2026-05"
+        }
+      },
+      "exposure_eur": 4200.0
+    },
+    {
+      "id": "F003",
+      "type": "phantom_erp_entry",
+      "severity": "high",
+      "invoice_ids": [
+        "INV-1062"
+      ],
+      "customer": "Strandvik Energy",
+      "description": "Strandvik Energy has an ERP booking (EUR 7,200, period 2026-05) with no underlying invoice in the billing system. No source document -- needs tracing back to whatever created this entry.",
+      "evidence": {
+        "erp": {
+          "invoice_id": "INV-1062",
+          "customer": "Strandvik Energy",
+          "amount_eur": "7200",
+          "booked_date": "2026-05-18",
+          "period": "2026-05"
+        }
+      },
+      "exposure_eur": 7200.0
+    },
+    {
+      "id": "F004",
+      "type": "wrong_period",
+      "severity": "high",
+      "invoice_ids": [
+        "INV-1054"
+      ],
+      "customer": "Ravnholm Capital",
+      "description": "Ravnholm Capital's invoice was issued 2026-06-29 (2026-Q2) but booked into the ERP as 2026-07-02 (2026-Q3) -- revenue recognised outside the quarter it was actually earned in.",
+      "evidence": {
+        "billing": {
+          "invoice_id": "INV-1054",
+          "customer": "Ravnholm Capital",
+          "amount_eur": "9100",
+          "issue_date": "2026-06-29",
+          "currency": "EUR"
+        },
+        "erp": {
+          "invoice_id": "INV-1054",
+          "customer": "Ravnholm Capital",
+          "amount_eur": "9100",
+          "booked_date": "2026-07-02",
+          "period": "2026-07"
+        }
+      },
+      "exposure_eur": 9100.0
+    },
+    {
+      "id": "F005",
+      "type": "amount_mismatch",
+      "severity": "high",
+      "invoice_ids": [
+        "INV-1038"
+      ],
+      "customer": "Lindevang Pharma",
+      "description": "Lindevang Pharma billed at EUR 6,700 but booked in the ERP at EUR 6,070 -- a EUR 630 gap between the two systems for the same invoice.",
+      "evidence": {
+        "billing": {
+          "invoice_id": "INV-1038",
+          "customer": "Lindevang Pharma",
+          "amount_eur": "6700",
+          "issue_date": "2026-05-04",
+          "currency": "EUR"
+        },
+        "erp": {
+          "invoice_id": "INV-1038",
+          "customer": "Lindevang Pharma",
+          "amount_eur": "6070",
+          "booked_date": "2026-05-04",
+          "period": "2026-05"
+        }
+      },
+      "exposure_eur": 630.0
+    },
+    {
+      "id": "F006",
+      "type": "currency_mismatch",
+      "severity": "medium",
+      "invoice_ids": [
+        "INV-1028"
+      ],
+      "customer": "Havnefront Media",
+      "description": "Havnefront Media's invoice was raised in DKK and converted to EUR 29,000 in billing, but booked in the ERP at EUR 3,900 -- a EUR 25,100 gap. The two were never reconciled against each other after conversion.",
+      "evidence": {
+        "billing": {
+          "invoice_id": "INV-1028",
+          "customer": "Havnefront Media",
+          "amount_eur": "29000",
+          "issue_date": "2026-05-01",
+          "currency": "DKK"
+        },
+        "erp": {
+          "invoice_id": "INV-1028",
+          "customer": "Havnefront Media",
+          "amount_eur": "3900",
+          "booked_date": "2026-05-01",
+          "period": "2026-05"
+        }
+      },
+      "exposure_eur": 25100.0
+    },
+    {
+      "id": "F007",
+      "type": "likely_duplicate_payment",
+      "severity": "high",
+      "invoice_ids": [
+        "INV-1021",
+        "INV-1061"
+      ],
+      "customer": "Fjordmark A/S",
+      "description": "'Fjordmark A/S' and 'Fjordmark A/S.' are 96% similar names, both booked for EUR 4,200 in 2026-05 -- reads as the same bill paid twice under a near-identical supplier name, not two real customers.",
+      "evidence": {
+        "erp_entry_1": {
+          "invoice_id": "INV-1021",
+          "customer": "Fjordmark A/S",
+          "amount_eur": "4200",
+          "booked_date": "2026-05-02",
+          "period": "2026-05"
+        },
+        "erp_entry_2": {
+          "invoice_id": "INV-1061",
+          "customer": "Fjordmark A/S.",
+          "amount_eur": "4200",
+          "booked_date": "2026-05-02",
+          "period": "2026-05"
+        }
+      },
+      "exposure_eur": 4200.0
+    },
+    {
+      "id": "F008",
+      "type": "contract_drift",
+      "severity": "medium",
+      "invoice_ids": [
+        "INV-1004"
+      ],
+      "customer": "Kysten Logistics ApS",
+      "description": "Kysten Logistics ApS was over-billed by EUR 550 vs. the signed contract value of EUR 3,300/month -- both billing and the ERP agree with each other, but not with the contract on file.",
+      "evidence": {
+        "billing": {
+          "invoice_id": "INV-1004",
+          "customer": "Kysten Logistics ApS",
+          "amount_eur": "3850",
+          "issue_date": "2026-04-02",
+          "currency": "EUR"
+        },
+        "contract_value_eur": 3300.0
+      },
+      "exposure_eur": 550.0
+    },
+    {
+      "id": "F009",
+      "type": "contract_drift",
+      "severity": "medium",
+      "invoice_ids": [
+        "INV-1055"
+      ],
+      "customer": "Bjerget Clinics",
+      "description": "Bjerget Clinics was under-billed by EUR 500 vs. the signed contract value of EUR 3,100/month -- both billing and the ERP agree with each other, but not with the contract on file.",
+      "evidence": {
+        "billing": {
+          "invoice_id": "INV-1055",
+          "customer": "Bjerget Clinics",
+          "amount_eur": "2600",
+          "issue_date": "2026-06-02",
+          "currency": "EUR"
+        },
+        "contract_value_eur": 3100.0
+      },
+      "exposure_eur": 500.0
+    }
+  ]
+}

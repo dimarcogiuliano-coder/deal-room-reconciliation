@@ -1,0 +1,31 @@
+Transactions checked: 62
+Findings: 9
+Total EUR exposure flagged: 56,280
+
+[F001] (HIGH) missing_from_erp -- Osterbro Property Group
+  Osterbro Property Group was invoiced in billing (EUR 4,800, issued 2026-06-05) but no matching entry exists in the ERP ledger. Unrecognised revenue -- the kind of gap that only surfaces once someone cross-checks both systems line by line.
+
+[F002] (HIGH) phantom_erp_entry -- Fjordmark A/S.
+  Fjordmark A/S. has an ERP booking (EUR 4,200, period 2026-05) with no underlying invoice in the billing system. No source document -- needs tracing back to whatever created this entry.
+
+[F003] (HIGH) phantom_erp_entry -- Strandvik Energy
+  Strandvik Energy has an ERP booking (EUR 7,200, period 2026-05) with no underlying invoice in the billing system. No source document -- needs tracing back to whatever created this entry.
+
+[F004] (HIGH) wrong_period -- Ravnholm Capital
+  Ravnholm Capital's invoice was issued 2026-06-29 (2026-Q2) but booked into the ERP as 2026-07-02 (2026-Q3) -- revenue recognised outside the quarter it was actually earned in.
+
+[F005] (HIGH) amount_mismatch -- Lindevang Pharma
+  Lindevang Pharma billed at EUR 6,700 but booked in the ERP at EUR 6,070 -- a EUR 630 gap between the two systems for the same invoice.
+
+[F006] (MEDIUM) currency_mismatch -- Havnefront Media
+  Havnefront Media's invoice was raised in DKK and converted to EUR 29,000 in billing, but booked in the ERP at EUR 3,900 -- a EUR 25,100 gap. The two were never reconciled against each other after conversion.
+
+[F007] (HIGH) likely_duplicate_payment -- Fjordmark A/S
+  'Fjordmark A/S' and 'Fjordmark A/S.' are 96% similar names, both booked for EUR 4,200 in 2026-05 -- reads as the same bill paid twice under a near-identical supplier name, not two real customers.
+
+[F008] (MEDIUM) contract_drift -- Kysten Logistics ApS
+  Kysten Logistics ApS was over-billed by EUR 550 vs. the signed contract value of EUR 3,300/month -- both billing and the ERP agree with each other, but not with the contract on file.
+
+[F009] (MEDIUM) contract_drift -- Bjerget Clinics
+  Bjerget Clinics was under-billed by EUR 500 vs. the signed contract value of EUR 3,100/month -- both billing and the ERP agree with each other, but not with the contract on file.
+
