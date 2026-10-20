@@ -8,6 +8,10 @@ A reconciliation engine that cross-checks a billing system export against an ERP
 
 Three failure modes show up over and over in pre-raise and pre-acquisition financial diligence: revenue booked in the wrong system, the wrong period, or at the wrong amount — and a company usually finds out the hard way, a few weeks before the data room goes live, when the numbers stop holding together. This automates the cross-check instead of relying on someone catching it by eye.
 
+## What this is
+
+A small tool I built myself, end to end — the logic that checks the data, and the page that shows the results. It catches the kind of accounting mess that normally only surfaces mid-fundraise or mid-acquisition — the same bill paid twice, a sale booked in the wrong month, two internal systems quietly disagreeing with each other.
+
 ## What it catches
 
 - **Revenue leakage** — invoiced in billing, never booked in the ERP
